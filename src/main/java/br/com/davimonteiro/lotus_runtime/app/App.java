@@ -30,7 +30,7 @@ import java.util.List;
 import br.com.davimonteiro.lotus_runtime.LotusRuntime;
 import br.com.davimonteiro.lotus_runtime.checker.ConditionalOperator;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
-import br.com.davimonteiro.lotus_runtime.config.LotusRuntimeConfiguration;
+import br.com.davimonteiro.lotus_runtime.config.Configuration;
 
 public class App {
 	public static void main(String[] args) throws Exception {
@@ -61,7 +61,7 @@ public class App {
 		MyHandler handler = new MyHandler();
 		
 		
-		LotusRuntimeConfiguration config = LotusRuntimeConfiguration.builder()
+		Configuration config = Configuration.builder()
 				.traceFile(traceFile.toString())
 				.milliseconds(2000L)
 				.projectFile(lotusFile.toString())

@@ -24,11 +24,22 @@ package br.com.davimonteiro.lotus_runtime.checker;
 
 public enum ConditionalOperator {
 	
-	EQUAL_TO,
-	NOT_EQUAL_TO,
-	GREATER_THAN,
-	GREATER_THAN_OR_EQUAL_TO,
-	LESS_THAN,
-	LESS_THAN_OR_EQUAL_TO;
+	EQUAL_TO("="),
+	NOT_EQUAL_TO("!="),
+	GREATER_THAN(">"),
+	GREATER_THAN_OR_EQUAL_TO(">="),
+	LESS_THAN("<"),
+	LESS_THAN_OR_EQUAL_TO("<=");
+	
+	private String operator;
+	
+	private ConditionalOperator(String operator) {
+		this.operator = operator;
+	}
+	
+	@Override
+	public String toString() {
+		return this.operator;
+	}
 	
 }

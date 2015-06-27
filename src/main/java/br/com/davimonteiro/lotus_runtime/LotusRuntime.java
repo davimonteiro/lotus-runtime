@@ -25,7 +25,7 @@ package br.com.davimonteiro.lotus_runtime;
 import java.nio.file.Paths;
 
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponent;
-import br.com.davimonteiro.lotus_runtime.config.LotusRuntimeConfiguration;
+import br.com.davimonteiro.lotus_runtime.config.Configuration;
 import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponent;
 import br.com.davimonteiro.lotus_runtime.eventbus.PropertyViolationHandler;
 import br.com.davimonteiro.lotus_runtime.monitor.TraceWatcherComponent;
@@ -33,13 +33,13 @@ import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponent;
 
 public class LotusRuntime {
 
-	private LotusRuntimeConfiguration configuration;
+	private Configuration configuration;
 	
 	private PropertyViolationHandler violationHandler;
 	
 	private ComponentContext context;
 	
-	public LotusRuntime(LotusRuntimeConfiguration configuration, PropertyViolationHandler violationHandler) {
+	public LotusRuntime(Configuration configuration, PropertyViolationHandler violationHandler) {
 		this.configuration = configuration;
 		this.violationHandler = violationHandler;
 		this.context = new ComponentContextImpl();

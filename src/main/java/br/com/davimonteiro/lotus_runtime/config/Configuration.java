@@ -33,7 +33,12 @@ import br.com.davimonteiro.lotus_runtime.checker.Property;
 @Builder
 @EqualsAndHashCode
 @ToString
-public class LotusRuntimeConfiguration {
+public class Configuration {
+	
+	public static final String FILE_EXTENSION = ".json";
+	
+	@Getter
+	private String name;
 	
 	@Getter
 	private String traceFile;

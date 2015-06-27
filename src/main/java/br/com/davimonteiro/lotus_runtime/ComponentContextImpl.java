@@ -72,6 +72,20 @@ public class ComponentContextImpl implements ComponentContext {
 		return result;
 	}
 	
+	// TODO Fazer a modificacao de segunraca aqui
+	public Component get(Component component) {
+		Component result = null;
+		
+		for (Component c : components) {
+			if (component.getClass().isAssignableFrom(c.getClass())) {
+				result = c;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public void installComponent(Component component) throws Exception {
 		log.info("Installing the component: " + component.getClass());

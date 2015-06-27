@@ -27,7 +27,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,24 +37,14 @@ import com.google.gson.JsonSyntaxException;
 
 public class ConfigurationUtil {
 	
-	public static final String USER_HOME = "user.home";
-	public static final String FILE_NAME = "config.json";
-	
-	
-	public static void main(String[] args) {
-		System.out.println(System.getProperty(USER_HOME));
-	}
-	
-	public static LotusRuntimeConfiguration load(Path path) {
-		LotusRuntimeConfiguration config = null;
+	public static Configuration load(Path configPath) {
+		Configuration config = null;
 		
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 		
-		Path configPath = Paths.get(path.toString(), FILE_NAME);
-		
 		try {
-			config = gson.fromJson(new FileReader(configPath.toFile()), LotusRuntimeConfiguration.class);
+			config = gson.fromJson(new FileReader(configPath.toFile()), Configuration.class);
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -63,18 +52,18 @@ public class ConfigurationUtil {
 		return config;
 	}
 	
-	public static LotusRuntimeConfiguration load(String jsonConfig) {
-		LotusRuntimeConfiguration config = null;
+	public static Configuration load(String jsonConfig) {
+		Configuration config = null;
 		
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 		
-		config = gson.fromJson(jsonConfig, LotusRuntimeConfiguration.class);
+		config = gson.fromJson(jsonConfig, Configuration.class);
 		
 		return config;
 	}
 	
-	public static LotusRuntimeConfiguration save(Path path, LotusRuntimeConfiguration config) {
+	public static Configuration save(Path configPath, Configuration config) {
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.setPrettyPrinting().create();
 		
@@ -84,7 +73,6 @@ public class ConfigurationUtil {
 		String json = gson.toJson(jsonElement);
 				
 		try {
-			Path configPath = Paths.get(path.toString(), FILE_NAME);
 			Files.write(configPath, json.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
