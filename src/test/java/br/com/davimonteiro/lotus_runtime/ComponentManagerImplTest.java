@@ -20,37 +20,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.eventbus;
+package br.com.davimonteiro.lotus_runtime;
 
-import net.engio.mbassy.bus.MBassador;
-import br.com.davimonteiro.lotus_runtime.Component;
-import br.com.davimonteiro.lotus_runtime.ComponentContext;
-import br.com.davimonteiro.lotus_runtime.checker.Property;
+import static org.junit.Assert.assertEquals;
 
-public class EventBusComponent implements Component {
+import org.junit.Test;
 
-	private MBassador<Property> eventBus;
+import br.com.davimonteiro.lotus_runtime.app.MyHandler;
+import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentServiceImpl;
+import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentService;
 
-	private PropertyViolationHandler violationHandler;
+
+
+public class ComponentManagerImplTest {
 	
-	public EventBusComponent(PropertyViolationHandler violationHandler) {
-		this.eventBus = new MBassador<Property>();
-		this.violationHandler = violationHandler;
-	}
 	
-	@Override
-	public void start(ComponentContext context) throws Exception {
-		eventBus.subscribe(violationHandler);
-	}
-
-	@Override
-	public void stop(ComponentContext context) throws Exception {
-		eventBus.unsubscribe(violationHandler);
-		eventBus.shutdown();
+	@Test
+	public void test() throws Exception {
+		
+		ComponentManager manager = new ComponentManagerImpl();
+		
+		manager.installComponent(new EventBusComponentServiceImpl(new MyHandler()));
+		
+		System.out.println("Class: " + manager.getComponentService(EventBusComponentService.class));
+		
+		assertEquals("10 x 0 must be 0", 0, 0);
 	}
 	
-	public void publish(Property condition) {
-		eventBus.publishAsync(condition);
-	}
 	
 }

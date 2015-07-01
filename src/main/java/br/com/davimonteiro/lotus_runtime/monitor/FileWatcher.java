@@ -45,9 +45,9 @@ public class FileWatcher {
 	
 	private WatchService watcher;
 	private Map<WatchKey, Path> keys;
-	private TraceWatcherComponent monitorService;
+	private TraceWatcherComponentService monitorService;
 
-	public FileWatcher(TraceWatcherComponent monitorService) throws IOException {
+	public FileWatcher(TraceWatcherComponentService monitorService) throws IOException {
 		this.monitorService = monitorService;
 		init();
 	}
@@ -105,6 +105,7 @@ public class FileWatcher {
 			lineReader.mark(0);
 			log.info("Reading the file. Done!");
 		} catch (IOException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 	}

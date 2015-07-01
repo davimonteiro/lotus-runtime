@@ -24,22 +24,20 @@ package br.com.davimonteiro.lotus_runtime.monitor;
 
 import java.nio.file.Path;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
-import br.com.davimonteiro.lotus_runtime.ComponentContext;
-import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponent;
-import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponent;
+import br.com.davimonteiro.lotus_runtime.ComponentManager;
+import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponentService;
+import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponentService;
 
 @Slf4j
-public class TraceWatcherComponent implements Component {
+public class TraceWatcherComponentServiceImpl implements Component, TraceWatcherComponentService {
 	
-	@Getter
 	private Path traceFile;
 	
-	private ProjectUtilComponent projectUtilComponent;
+	private ProjectUtilComponentService projectUtilComponentService;
 	
-	private ModelCheckerComponent modelCheckerComponent;
+	private ModelCheckerComponentService modelCheckerComponentService;
 	
 	private ProbabilisticAnnotator annotator;
 
@@ -48,33 +46,40 @@ public class TraceWatcherComponent implements Component {
 	private Long milliseconds;
 	
 
-	public TraceWatcherComponent(Path traceFile, Long milliseconds) {
+	public TraceWatcherComponentServiceImpl(Path traceFile, Long milliseconds) {
 		this.annotator = new ProbabilisticAnnotator();
 		this.traceFile = traceFile;
 		this.milliseconds = milliseconds;
 	}
 
 	@Override
-	public void start(ComponentContext context) throws Exception {
+	public void start(ComponentManager manager) throws Exception {
 		log.info("Starting the TraceWatcherComponent");
 		
-		this.projectUtilComponent = context.getComponent(ProjectUtilComponent.class);
-		this.modelCheckerComponent = context.getComponent(ModelCheckerComponent.class);
+		this.projectUtilComponentService = manager.getComponentService(ProjectUtilComponentService.class);
+		this.modelCheckerComponentService = manager.getComponentService(ModelCheckerComponentService.class);
 		this.traceWatcherHelper = new TraceWatcherHelper(this, milliseconds);
 		
 		new Thread(traceWatcherHelper).start();
 	}
 
 	@Override
-	public void stop(ComponentContext context) throws Exception {
+	public void stop(ComponentManager manager) throws Exception {
 		traceWatcherHelper.stop();
+		manager.uninstallComponent(this);
 	}
 	
 	// Update the model and the project file
+	@Override
 	public void updateModel(String[] trace) {
-		this.annotator.annotate(projectUtilComponent.getComponent(), trace);
-		this.projectUtilComponent.updateProject(projectUtilComponent.getProject());
-		this.modelCheckerComponent.verifyModel();
+		this.annotator.annotate(projectUtilComponentService.getComponent(), trace);
+		this.projectUtilComponentService.updateProject(projectUtilComponentService.getProject());
+		this.modelCheckerComponentService.verifyModel();
+	}
+
+	@Override
+	public Path getTraceFile() {
+		return this.traceFile;
 	}
 
 }

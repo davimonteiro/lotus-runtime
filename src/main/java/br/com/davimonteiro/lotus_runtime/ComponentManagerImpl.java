@@ -28,16 +28,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ComponentContextImpl implements ComponentContext {
+public class ComponentManagerImpl implements ComponentManager {
 	
 	private List<Component> components;
 	
-	public ComponentContextImpl() {
+	public ComponentManagerImpl() {
 		this.components = new CopyOnWriteArrayList<Component>();
 	}
 		
 	@Override
-	public void start(ComponentContext context) throws Exception {
+	public void start(ComponentManager manager) throws Exception {
 		for (Component component : components) {
 			log.info("Starting the component: " + component.getClass());
 			component.start(this);
@@ -45,46 +45,28 @@ public class ComponentContextImpl implements ComponentContext {
 	}
 
 	@Override
-	public void stop(ComponentContext context) throws Exception {
+	public void stop(ComponentManager manager) throws Exception {
 		for (Component component : components) {
 			component.stop(this);
 			log.info("Stopping the component: " + component.getClass());
-			uninstallComponent(component);
 		}
 	}
 	
-	// TODO Refactor this method
-	// http://stackoverflow.com/questions/28921833/why-is-this-an-unchecked-cast-and-how-to-fix-it
-	// http://stackoverflow.com/questions/496928/what-is-the-difference-between-instanceof-and-class-isassignablefrom
-	// http://www.ralfebert.de/archive/java/isassignablefrom/
-	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T getComponent(Class<?> clazz) {
-		T result = null;
+	@Override
+	public <T> T getComponentService(Class<? extends ComponentService> clazz) {
+		T service = null;
 		
-		for (Component c : components) {
-			if (clazz.isAssignableFrom(c.getClass())) {
-				result = (T) c;
+		for (Component component : components) {
+			if (clazz.isAssignableFrom(component.getClass())) {
+				service = (T) component;
 				break;
 			}
 		}
 		
-		return result;
+		return service;
 	}
 	
-	// TODO Fazer a modificacao de segunraca aqui
-	public Component get(Component component) {
-		Component result = null;
-		
-		for (Component c : components) {
-			if (component.getClass().isAssignableFrom(c.getClass())) {
-				result = c;
-				break;
-			}
-		}
-		
-		return result;
-	}
 	
 	@Override
 	public void installComponent(Component component) throws Exception {

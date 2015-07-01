@@ -26,68 +26,55 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
-import br.com.davimonteiro.lotus_runtime.ComponentContext;
+import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.conditional.ConditionContext;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponent;
+import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentService;
 import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.probabilisticReach.ProbabilisticReachAlgorithm;
-import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponent;
+import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponentService;
 
 @Slf4j
-public class ModelCheckerComponent implements Component {
+public class ModelCheckerComponentServiceImpl implements Component, ModelCheckerComponentService {
 	
-	private ProjectUtilComponent projectUtilComponent;
+	private ProjectUtilComponentService projectUtilComponentService;
 	
 	private List<Property> properties;
 	
 	private ProbabilisticReachAlgorithm reachAlgorithm;
 	
-	private EventBusComponent eventBusComponent;
+	private EventBusComponentService eventBusComponentService;
 	
 	private ConditionContext conditionContext;
 	
-	public ModelCheckerComponent(List<Property> properties) {
+	public ModelCheckerComponentServiceImpl(List<Property> properties) {
 		this.properties = properties;
 		this.reachAlgorithm = new ProbabilisticReachAlgorithm();
 		this.conditionContext = new ConditionContext();
 	}
 	
 	@Override
-	public void start(ComponentContext context) throws Exception {
-		this.projectUtilComponent = context.getComponent(ProjectUtilComponent.class);
-		this.eventBusComponent = context.getComponent(EventBusComponent.class);
-
-//		Iterable<LotusTransition> transitions = projectUtilComponent.getComponent().getTransitions();
-//		
-//		for (LotusTransition transition : transitions) {
-//			transition.addListener(listener);
-//		}
+	public void start(ComponentManager manager) throws Exception {
+		this.projectUtilComponentService = manager.getComponentService(ProjectUtilComponentService.class);
+		this.eventBusComponentService = manager.getComponentService(EventBusComponentService.class);
 	}
 	
-	
+	@Override
 	public void verifyModel() {
-		LotusComponent component = projectUtilComponent.getComponent();
+		LotusComponent component = projectUtilComponentService.getComponent();
 
 		for (Property property : properties) {
 			Double probabilityBetween = reachAlgorithm.probabilityBetween(component, property.getSourceStateId(), property.getTargetStateId());
 			
 			if (conditionContext.verify(property.getProbability(), property.getConditionalOperator(), probabilityBetween)) {
-				eventBusComponent.publish(property);
+				eventBusComponentService.publish(property);
 				log.info(property.toString());
 			}
 		}
 	}
 	
 	@Override
-	public void stop(ComponentContext context) throws Exception { }
+	public void stop(ComponentManager manager) throws Exception {
+		manager.uninstallComponent(this);
+	}
 	
-//	private LotusTransition.Listener listener = new LotusTransition.Listener() {
-//		
-//		@Override
-//		public void onChange(LotusTransition transition) {
-//			verifyModel();
-//		}
-//		
-//	};
-
 }

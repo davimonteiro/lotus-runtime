@@ -24,12 +24,12 @@ package br.com.davimonteiro.lotus_runtime;
 
 import java.nio.file.Paths;
 
-import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponent;
+import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.config.Configuration;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponent;
+import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.eventbus.PropertyViolationHandler;
-import br.com.davimonteiro.lotus_runtime.monitor.TraceWatcherComponent;
-import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponent;
+import br.com.davimonteiro.lotus_runtime.monitor.TraceWatcherComponentServiceImpl;
+import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponentServiceImpl;
 
 public class LotusRuntime {
 
@@ -37,25 +37,25 @@ public class LotusRuntime {
 	
 	private PropertyViolationHandler violationHandler;
 	
-	private ComponentContext context;
+	private ComponentManager manager;
 	
 	public LotusRuntime(Configuration configuration, PropertyViolationHandler violationHandler) {
 		this.configuration = configuration;
 		this.violationHandler = violationHandler;
-		this.context = new ComponentContextImpl();
+		this.manager = new ComponentManagerImpl();
 	}
 	
 	public void start() throws Exception {
-		context.installComponent(new EventBusComponent(violationHandler));
-		context.installComponent(new ProjectUtilComponent(Paths.get(configuration.getProjectFile())));
-		context.installComponent(new TraceWatcherComponent(Paths.get(configuration.getTraceFile()), configuration.getMilliseconds()));
-		context.installComponent(new ModelCheckerComponent(configuration.getProperties()));
+		manager.installComponent(new EventBusComponentServiceImpl(violationHandler));
+		manager.installComponent(new ProjectUtilComponentServiceImpl(Paths.get(configuration.getProjectFile())));
+		manager.installComponent(new TraceWatcherComponentServiceImpl(Paths.get(configuration.getTraceFile()), configuration.getMilliseconds()));
+		manager.installComponent(new ModelCheckerComponentServiceImpl(configuration.getProperties()));
 		
-		context.start(context);
+		manager.start(manager);
 	}
 
 	public void stop() throws Exception {
-		context.stop(context);
+		manager.stop(manager);
 	}
 
 }

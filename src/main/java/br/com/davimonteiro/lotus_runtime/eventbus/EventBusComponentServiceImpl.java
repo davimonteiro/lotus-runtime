@@ -20,12 +20,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime;
+package br.com.davimonteiro.lotus_runtime.eventbus;
 
-public interface Component {
+import net.engio.mbassy.bus.MBassador;
+import br.com.davimonteiro.lotus_runtime.Component;
+import br.com.davimonteiro.lotus_runtime.ComponentManager;
+import br.com.davimonteiro.lotus_runtime.checker.Property;
+
+public class EventBusComponentServiceImpl implements Component, EventBusComponentService {
+
+	private MBassador<Property> eventBus;
+
+	private PropertyViolationHandler violationHandler;
 	
-	public void start(ComponentManager manager) throws Exception;
+	public EventBusComponentServiceImpl(PropertyViolationHandler violationHandler) {
+		this.eventBus = new MBassador<Property>();
+		this.violationHandler = violationHandler;
+	}
 	
-	public void stop(ComponentManager manager) throws Exception;
+	@Override
+	public void start(ComponentManager manager) throws Exception {
+		eventBus.subscribe(violationHandler);
+	}
+
+	@Override
+	public void stop(ComponentManager manager) throws Exception {
+		eventBus.unsubscribe(violationHandler);
+		eventBus.shutdown();
+		manager.uninstallComponent(this);
+	}
+	
+	@Override
+	public void publish(Property condition) {
+		eventBus.publishAsync(condition);
+	}
 	
 }

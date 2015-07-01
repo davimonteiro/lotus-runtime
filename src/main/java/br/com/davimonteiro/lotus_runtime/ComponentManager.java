@@ -22,9 +22,9 @@
  */
 package br.com.davimonteiro.lotus_runtime;
 
-public interface ComponentContext extends Component {
+public interface ComponentManager extends Component {
 	
-	public <T> T getComponent(Class<?> clazz);
+	public <T> T getComponentService(Class<? extends ComponentService> clazz);
 	
 	public void installComponent(Component component) throws Exception;
 	

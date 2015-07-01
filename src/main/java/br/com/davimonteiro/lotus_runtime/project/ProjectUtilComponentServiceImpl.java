@@ -33,12 +33,12 @@ import java.nio.file.Path;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
-import br.com.davimonteiro.lotus_runtime.ComponentContext;
+import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.LotusProject;
 
 @Slf4j
-public class ProjectUtilComponent implements Component {
+public class ProjectUtilComponentServiceImpl implements Component, ProjectUtilComponentService {
 
 	private Path projectFile;
 	
@@ -47,19 +47,20 @@ public class ProjectUtilComponent implements Component {
 	private ProjectSerializer serializer;
 	
 	
-	public ProjectUtilComponent(Path projectFile) {
+	public ProjectUtilComponentServiceImpl(Path projectFile) {
 		this.projectFile = projectFile;
 		this.serializer = new ProjectXMLSerializer();
 	}
 
 	@Override
-	public void start(ComponentContext context) throws Exception {
+	public void start(ComponentManager manager) throws Exception {
 		loadProject();
 	}
 	
 	@Override
-	public void stop(ComponentContext context) throws Exception {
+	public void stop(ComponentManager manager) throws Exception {
 		saveProject();
+		manager.uninstallComponent(this);
 	}
 
 	private void saveProject() throws IOException, Exception {
@@ -83,6 +84,7 @@ public class ProjectUtilComponent implements Component {
 		
 	}
 	
+	@Override
 	@Synchronized
 	public void updateProject(LotusProject project) {
 		this.project = project;
@@ -94,14 +96,15 @@ public class ProjectUtilComponent implements Component {
 			// TODO Throw an exception
 			e.printStackTrace();
 		}
-		
 	}
 	
+	@Override
 	@Synchronized
 	public LotusProject getProject() {
 		return this.project;
 	}
 	
+	@Override
 	@Synchronized
 	public LotusComponent getComponent() {
 		return this.project.getComponent(0);
