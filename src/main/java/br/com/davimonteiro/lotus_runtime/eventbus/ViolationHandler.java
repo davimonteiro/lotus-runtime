@@ -20,18 +20,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.eventbus;
 
-import br.com.davimonteiro.lotus_runtime.ComponentService;
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusProject;
+import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-public interface ProjectUtilComponentService extends ComponentService {
+//@Inherited
+public interface ViolationHandler {
 	
-	public void updateProject(LotusProject project);
+	public void handler(Property property);
 	
-	public LotusProject getProject();
-	
-	public LotusComponent getComponent() ;
-
 }

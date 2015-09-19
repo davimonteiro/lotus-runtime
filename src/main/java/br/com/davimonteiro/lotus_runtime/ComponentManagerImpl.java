@@ -47,8 +47,8 @@ public class ComponentManagerImpl implements ComponentManager {
 	@Override
 	public void stop(ComponentManager manager) throws Exception {
 		for (Component component : components) {
-			component.stop(this);
 			log.info("Stopping the component: " + component.getClass());
+			component.stop(this);
 		}
 	}
 	

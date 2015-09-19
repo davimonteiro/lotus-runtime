@@ -22,11 +22,14 @@
  */
 package br.com.davimonteiro.lotus_runtime.eventbus;
 
+import net.engio.mbassy.listener.Handler;
+import net.engio.mbassy.listener.Listener;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-
+@Listener
 public interface PropertyViolationHandler {
 	
+	@Handler
 	public void handler(Property property);
 	
 }
