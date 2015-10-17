@@ -20,13 +20,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.eventbus;
+package br.com.davimonteiro.lotus_runtime.checker;
 
 import br.com.davimonteiro.lotus_runtime.ComponentService;
-import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-public interface EventBusComponentService extends ComponentService {
+/**
+ * 
+ * @author davimonteiro
+ *
+ */
+public interface ModelCheckerServiceComponent extends ComponentService {
 	
-	public void publish(Property condition);
+	/**
+	 * 
+	 */
+	public void verifyModel();
 
 }

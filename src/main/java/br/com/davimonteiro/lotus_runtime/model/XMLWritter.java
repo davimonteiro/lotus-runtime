@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.model;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

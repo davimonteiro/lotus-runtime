@@ -33,11 +33,11 @@ public class AppJson {
 	public static void main(String[] args) throws Exception {
 
 		MyHandler handler = new MyHandler();
-		Path configPath = Paths.get("/Users/davimonteiro/Desktop/config.json");
+		Path configPath = Paths.get("/Users/davimonteiro/Desktop/LoTuS files/config.json");
 
 		LotusRuntime lotusRuntime = new LotusRuntime(ConfigurationUtil.load(configPath), handler);
 		lotusRuntime.start();
-		lotusRuntime.stop();
+		//lotusRuntime.stop();
 		
 	}
 

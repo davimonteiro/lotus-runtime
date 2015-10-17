@@ -33,11 +33,13 @@ import br.com.davimonteiro.lotus_runtime.checker.Property;
 import br.com.davimonteiro.lotus_runtime.config.Configuration;
 
 public class App {
+	
 	public static void main(String[] args) throws Exception {
 
+		
 		// File paths
-		Path traceFile = Paths.get("/Users/davimonteiro/Desktop/LoTuS files/traces.csv");
-		Path lotusFile = Paths.get("/Users/davimonteiro/Desktop/LoTuS files/Modified_TeleAssisteance.xml");
+		Path traceFile = Paths.get("/Users/davimonteiro/Desktop/log/traces.csv");
+		Path lotusFile = Paths.get("/Users/davimonteiro/Desktop/LoTuS files/TeleAssisteance.xml");
 		
 		
 		// Condictions that I want to verify

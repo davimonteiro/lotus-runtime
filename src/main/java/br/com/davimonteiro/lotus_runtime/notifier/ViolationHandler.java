@@ -20,16 +20,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.eventbus;
+package br.com.davimonteiro.lotus_runtime.notifier;
 
-import net.engio.mbassy.listener.Handler;
-import net.engio.mbassy.listener.Listener;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-@Listener
-public interface PropertyViolationHandler {
+public interface ViolationHandler {
 	
-	@Handler
 	public void handler(Property property);
 	
 }

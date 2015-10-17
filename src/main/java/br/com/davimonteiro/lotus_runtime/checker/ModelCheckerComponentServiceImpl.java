@@ -28,21 +28,21 @@ import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.conditional.ConditionContext;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentService;
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.ModelServiceComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentService;
 import br.com.davimonteiro.lotus_runtime.probabilisticReach.ProbabilisticReachAlgorithm;
-import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponentService;
 
 @Slf4j
-public class ModelCheckerComponentServiceImpl implements Component, ModelCheckerComponentService {
+public class ModelCheckerComponentServiceImpl implements Component, ModelCheckerServiceComponent {
 	
-	private ProjectUtilComponentService projectUtilComponentService;
+	private ModelServiceComponent modelComponent;
 	
 	private List<Property> properties;
 	
 	private ProbabilisticReachAlgorithm reachAlgorithm;
 	
-	private EventBusComponentService eventBusComponentService;
+	private NotifierComponentService eventBusComponentService;
 	
 	private ConditionContext conditionContext;
 	
@@ -54,13 +54,13 @@ public class ModelCheckerComponentServiceImpl implements Component, ModelChecker
 	
 	@Override
 	public void start(ComponentManager manager) throws Exception {
-		this.projectUtilComponentService = manager.getComponentService(ProjectUtilComponentService.class);
-		this.eventBusComponentService = manager.getComponentService(EventBusComponentService.class);
+		this.modelComponent = manager.getComponentService(ModelServiceComponent.class);
+		this.eventBusComponentService = manager.getComponentService(NotifierComponentService.class);
 	}
 	
 	@Override
 	public void verifyModel() {
-		LotusComponent component = projectUtilComponentService.getComponent();
+		LotusComponent component = modelComponent.getLotusComponent();
 
 		for (Property property : properties) {
 			Double probabilityBetween = reachAlgorithm.probabilityBetween(component, property.getSourceStateId(), property.getTargetStateId());

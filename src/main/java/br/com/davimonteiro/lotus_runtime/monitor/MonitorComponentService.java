@@ -20,18 +20,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.monitor;
+
+import java.nio.file.Path;
 
 import br.com.davimonteiro.lotus_runtime.ComponentService;
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusProject;
 
-public interface ProjectUtilComponentService extends ComponentService {
+/**
+ * 
+ * @author Davi Monteiro Barbosa
+ * @since 2015
+ *
+ * 
+ *
+ */
+public interface MonitorComponentService extends ComponentService {
 	
-	public void updateProject(LotusProject project);
+	/**
+	 * 
+	 * @param trace
+	 */
+	void updateModel(String[] trace);
 	
-	public LotusProject getProject();
+	/**
+	 * 
+	 * @return
+	 */
+	Path getTraceFile();
 	
-	public LotusComponent getComponent() ;
-
 }

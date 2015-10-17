@@ -34,15 +34,16 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusState;
-import br.com.davimonteiro.lotus_runtime.model.LotusTransition;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusState;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusTransition;
 
 /**
  *
  * @author emerson
  */
 public class ProbabilisticAnnotator {
+	
     private LotusState mCurrentState;
     private static final String VISIT_COUNT = "visit.count";
 

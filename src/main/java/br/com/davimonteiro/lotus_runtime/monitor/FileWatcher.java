@@ -45,9 +45,9 @@ public class FileWatcher {
 	
 	private WatchService watcher;
 	private Map<WatchKey, Path> keys;
-	private TraceWatcherComponentService monitorService;
+	private MonitorComponentService monitorService;
 
-	public FileWatcher(TraceWatcherComponentService monitorService) throws IOException {
+	public FileWatcher(MonitorComponentService monitorService) throws IOException {
 		this.monitorService = monitorService;
 		init();
 	}

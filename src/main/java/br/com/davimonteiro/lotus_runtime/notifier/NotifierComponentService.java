@@ -20,13 +20,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.eventbus;
+package br.com.davimonteiro.lotus_runtime.notifier;
 
+import br.com.davimonteiro.lotus_runtime.ComponentService;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-//@Inherited
-public interface ViolationHandler {
+public interface NotifierComponentService extends ComponentService {
 	
-	public void handler(Property property);
-	
+	public void publish(Property condition);
+
 }

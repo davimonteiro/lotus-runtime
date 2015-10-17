@@ -54,7 +54,7 @@ public class ComponentManagerImpl implements ComponentManager {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getComponentService(Class<? extends ComponentService> clazz) {
+	public <T extends ComponentService> T getComponentService(Class<T> clazz) {
 		T service = null;
 		
 		for (Component component : components) {
@@ -66,7 +66,6 @@ public class ComponentManagerImpl implements ComponentManager {
 		
 		return service;
 	}
-	
 	
 	@Override
 	public void installComponent(Component component) throws Exception {

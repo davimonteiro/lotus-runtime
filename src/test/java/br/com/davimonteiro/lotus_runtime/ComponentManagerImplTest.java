@@ -27,8 +27,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import br.com.davimonteiro.lotus_runtime.app.MyHandler;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentServiceImpl;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentService;
+import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentService;
+import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentServiceImpl;
 
 
 
@@ -40,9 +40,9 @@ public class ComponentManagerImplTest {
 		
 		ComponentManager manager = new ComponentManagerImpl();
 		
-		manager.installComponent(new EventBusComponentServiceImpl(new MyHandler()));
+		manager.installComponent(new NotifierComponentServiceImpl(new MyHandler()));
 		
-		System.out.println("Class: " + manager.getComponentService(EventBusComponentService.class));
+		System.out.println("Class: " + manager.getComponentService(NotifierComponentService.class));
 		
 		assertEquals("10 x 0 must be 0", 0, 0);
 	}

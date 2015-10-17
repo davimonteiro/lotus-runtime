@@ -20,20 +20,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.notifier;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import net.engio.mbassy.bus.MBassador;
+import br.com.davimonteiro.lotus_runtime.Component;
+import br.com.davimonteiro.lotus_runtime.ComponentManager;
+import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-import br.com.davimonteiro.lotus_runtime.model.LotusProject;
+public class NotifierComponentServiceImpl implements Component, NotifierComponentService {
 
-/**
- *
- * @author emerson
- */
-public interface ProjectSerializer {
+	private MBassador<Property> eventBus;
 
-    LotusProject parseStream(InputStream stream) throws Exception;
+	private PropertyViolationHandler violationHandler;
+	
+	public NotifierComponentServiceImpl(PropertyViolationHandler violationHandler) {
+		this.eventBus = new MBassador<Property>();
+		this.violationHandler = violationHandler;
+	}
+	
+	@Override
+	public void start(ComponentManager manager) throws Exception {
+		eventBus.subscribe(violationHandler);
+	}
 
-    void toStream(LotusProject p, OutputStream stream) throws Exception;
+	@Override
+	public void stop(ComponentManager manager) throws Exception {
+		eventBus.unsubscribe(violationHandler);
+		eventBus.shutdown();
+		manager.uninstallComponent(this);
+	}
+	
+	@Override
+	public void publish(Property condition) {
+		eventBus.publishAsync(condition);
+	}
+	
 }

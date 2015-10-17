@@ -25,7 +25,7 @@ package br.com.davimonteiro.lotus_runtime.app;
 import net.engio.mbassy.listener.Handler;
 import net.engio.mbassy.listener.Listener;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
-import br.com.davimonteiro.lotus_runtime.eventbus.PropertyViolationHandler;
+import br.com.davimonteiro.lotus_runtime.notifier.PropertyViolationHandler;
 
 @Listener
 public class MyHandler implements PropertyViolationHandler {

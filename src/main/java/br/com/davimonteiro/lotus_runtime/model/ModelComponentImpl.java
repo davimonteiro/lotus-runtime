@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.model;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
@@ -34,20 +34,20 @@ import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusProject;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
 @Slf4j
-public class ProjectUtilComponentServiceImpl implements Component, ProjectUtilComponentService {
+public class ModelComponentImpl implements Component, ModelServiceComponent {
 
 	private Path projectFile;
 	
-	private LotusProject project;
+	private LotusModel lotusModel;
 	
 	private ProjectSerializer serializer;
 	
 	
-	public ProjectUtilComponentServiceImpl(Path projectFile) {
+	public ModelComponentImpl(Path projectFile) {
 		this.projectFile = projectFile;
 		this.serializer = new ProjectXMLSerializer();
 	}
@@ -65,49 +65,45 @@ public class ProjectUtilComponentServiceImpl implements Component, ProjectUtilCo
 
 	private void saveProject() throws IOException, Exception {
 		OutputStream outputStream = Files.newOutputStream(projectFile);
-		serializer.toStream(project, outputStream);
+		serializer.toStream(lotusModel, outputStream);
 	}
 	
 	private void loadProject() {
 		try (InputStream in = Files.newInputStream(projectFile)) {
-			project = serializer.parseStream(in);
-			project.setValue("file", projectFile.toFile());
+			lotusModel = serializer.parseStream(in);
+			lotusModel.setValue("file", projectFile.toFile());
 			
-			if (isNullOrEmpty(project.getName())) {
-				project.setName("Untitled");
+			if (isNullOrEmpty(lotusModel.getName())) {
+				lotusModel.setName("Untitled");
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			// TODO Throw an exception
-			e.printStackTrace();
 		}
 		
 	}
 	
 	@Override
 	@Synchronized
-	public void updateProject(LotusProject project) {
-		this.project = project;
+	public void updateLotusModel(LotusModel project) {
+		this.lotusModel = project;
 
 		try {
 			saveProject();
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			// TODO Throw an exception
-			e.printStackTrace();
 		}
 	}
 	
 	@Override
 	@Synchronized
-	public LotusProject getProject() {
-		return this.project;
+	public LotusModel getLotusModel() {
+		return this.lotusModel;
 	}
 	
 	@Override
 	@Synchronized
-	public LotusComponent getComponent() {
-		return this.project.getComponent(0);
+	public LotusComponent getLotusComponent() {
+		return this.lotusModel.getComponent(0);
 	}
 	
 }

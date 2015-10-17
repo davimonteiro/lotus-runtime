@@ -20,12 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.checker;
+package br.com.davimonteiro.lotus_runtime.model;
 
-import br.com.davimonteiro.lotus_runtime.ComponentService;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-public interface ModelCheckerComponentService extends ComponentService {
-	
-	public void verifyModel();
+import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
+/**
+ *
+ * @author emerson
+ */
+public interface ProjectSerializer {
+
+    LotusModel parseStream(InputStream stream) throws Exception;
+
+    void toStream(LotusModel lotusModel, OutputStream stream) throws Exception;
+    
 }

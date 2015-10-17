@@ -20,16 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.monitor;
-
-import java.nio.file.Path;
+package br.com.davimonteiro.lotus_runtime.model;
 
 import br.com.davimonteiro.lotus_runtime.ComponentService;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
-public interface TraceWatcherComponentService extends ComponentService {
+public interface ModelServiceComponent extends ComponentService {
 	
-	public void updateModel(String[] trace);
+	void updateLotusModel(LotusModel model);
 	
-	public Path getTraceFile();
+	LotusModel getLotusModel();
 	
+	LotusComponent getLotusComponent() ;
+
 }

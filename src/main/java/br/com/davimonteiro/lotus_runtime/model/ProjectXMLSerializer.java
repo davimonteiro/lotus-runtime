@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.project;
+package br.com.davimonteiro.lotus_runtime.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,20 +32,20 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusProject;
-import br.com.davimonteiro.lotus_runtime.model.LotusState;
-import br.com.davimonteiro.lotus_runtime.model.LotusTransition;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusState;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusTransition;
 
 public class ProjectXMLSerializer implements ProjectSerializer {
 
-    private static LotusProject mProjeto;
+    private static LotusModel mProjeto;
     private static LotusComponent mComponent;
     private static LotusState mState;
     private static LotusTransition mTransition;
 
     @Override
-    public void toStream(LotusProject p, OutputStream stream) {
+    public void toStream(LotusModel p, OutputStream stream) {
         XMLWritter xml = new XMLWritter(stream);
         xml.begin("project");
         xml.attr("version", "1.0");
@@ -132,7 +132,7 @@ public class ProjectXMLSerializer implements ProjectSerializer {
     };
 
     @Override
-    public LotusProject parseStream(InputStream stream) throws Exception {
+    public LotusModel parseStream(InputStream stream) throws Exception {
         XMLReader xr = XMLReaderFactory.createXMLReader();
         xr.setContentHandler(handler);
         xr.parse(new InputSource(stream));
@@ -140,7 +140,7 @@ public class ProjectXMLSerializer implements ProjectSerializer {
     }
 
     private static void parseProjectTag(Attributes attributes) {
-        mProjeto = new LotusProject();
+        mProjeto = new LotusModel();
         mProjeto.setName(attributes.getValue("name"));
     }
 

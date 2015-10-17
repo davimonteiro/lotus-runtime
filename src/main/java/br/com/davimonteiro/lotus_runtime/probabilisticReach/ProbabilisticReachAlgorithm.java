@@ -34,9 +34,9 @@ import java.util.List;
 
 import com.google.common.collect.Iterables;
 
-import br.com.davimonteiro.lotus_runtime.model.LotusComponent;
-import br.com.davimonteiro.lotus_runtime.model.LotusState;
-import br.com.davimonteiro.lotus_runtime.model.LotusTransition;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusState;
+import br.com.davimonteiro.lotus_runtime.model.util.LotusTransition;
 
 /**
  *
@@ -119,7 +119,7 @@ public class ProbabilisticReachAlgorithm {
     
     public List<LotusTransition> transitionsList(LotusComponent a){
         Iterable<LotusTransition> aux = a.getTransitions();
-        List<LotusTransition> aux2 = new ArrayList();
+        List<LotusTransition> aux2 = new ArrayList<LotusTransition>();
         for(LotusTransition t : aux){
             aux2.add(t);
         }

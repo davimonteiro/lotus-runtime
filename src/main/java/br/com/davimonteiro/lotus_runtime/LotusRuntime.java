@@ -26,10 +26,11 @@ import java.nio.file.Paths;
 
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.config.Configuration;
-import br.com.davimonteiro.lotus_runtime.eventbus.EventBusComponentServiceImpl;
-import br.com.davimonteiro.lotus_runtime.eventbus.PropertyViolationHandler;
-import br.com.davimonteiro.lotus_runtime.monitor.TraceWatcherComponentServiceImpl;
-import br.com.davimonteiro.lotus_runtime.project.ProjectUtilComponentServiceImpl;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponentImpl;
+import br.com.davimonteiro.lotus_runtime.model.ModelComponentImpl;
+import br.com.davimonteiro.lotus_runtime.monitor.MonitorComponentServiceImpl;
+import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentServiceImpl;
+import br.com.davimonteiro.lotus_runtime.notifier.PropertyViolationHandler;
 
 public class LotusRuntime {
 
@@ -45,10 +46,19 @@ public class LotusRuntime {
 		this.manager = new ComponentManagerImpl();
 	}
 	
+	// TODO Para implementar. Cada componente deve ter uma prioridade para que ele seja inciado.
 	public void start() throws Exception {
-		manager.installComponent(new EventBusComponentServiceImpl(violationHandler));
-		manager.installComponent(new ProjectUtilComponentServiceImpl(Paths.get(configuration.getProjectFile())));
-		manager.installComponent(new TraceWatcherComponentServiceImpl(Paths.get(configuration.getTraceFile()), configuration.getMilliseconds()));
+		
+		// Configuration
+		ConfigurationServiceComponentImpl configurationServiceComponent = new ConfigurationServiceComponentImpl();
+		configurationServiceComponent.setConfiguration(configuration);
+		
+		
+		manager.installComponent(configurationServiceComponent);
+		
+		manager.installComponent(new NotifierComponentServiceImpl(violationHandler));
+		manager.installComponent(new ModelComponentImpl(Paths.get(configuration.getProjectFile())));
+		manager.installComponent(new MonitorComponentServiceImpl(Paths.get(configuration.getTraceFile()), configuration.getMilliseconds()));
 		manager.installComponent(new ModelCheckerComponentServiceImpl(configuration.getProperties()));
 		
 		manager.start(manager);

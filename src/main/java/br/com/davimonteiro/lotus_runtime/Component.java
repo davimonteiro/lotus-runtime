@@ -22,10 +22,17 @@
  */
 package br.com.davimonteiro.lotus_runtime;
 
+/**
+ * 
+ * @author Davi Monteiro Barbosa
+ * @since 2015
+ *
+ */
 public interface Component {
 	
-	public void start(ComponentManager manager) throws Exception;
+	void start(ComponentManager manager) throws Exception;
 	
-	public void stop(ComponentManager manager) throws Exception;
+	
+	void stop(ComponentManager manager) throws Exception;
 	
 }

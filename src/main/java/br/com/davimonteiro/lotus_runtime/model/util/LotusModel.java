@@ -20,24 +20,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.model;
+package br.com.davimonteiro.lotus_runtime.model.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LotusProject {
+public class LotusModel {
     
     private final Map<String, Object> mValues = new HashMap<String, Object>();
 
     public interface Listener {
 
-        void onChange(LotusProject project);
+        void onChange(LotusModel project);
 
-        void onComponentCreated(LotusProject project, LotusComponent component);
+        void onComponentCreated(LotusModel project, LotusComponent component);
 
-        void onComponentRemoved(LotusProject project, LotusComponent component);
+        void onComponentRemoved(LotusModel project, LotusComponent component);
     }
 
     private String mName;

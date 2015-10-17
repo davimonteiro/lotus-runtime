@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.com.davimonteiro.lotus_runtime.model;
+package br.com.davimonteiro.lotus_runtime.model.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

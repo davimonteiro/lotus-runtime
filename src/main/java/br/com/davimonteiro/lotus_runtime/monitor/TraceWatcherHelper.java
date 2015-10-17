@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TraceWatcherHelper implements Runnable {
 	
-	private TraceWatcherComponentService monitorService;
+	private MonitorComponentService monitorService;
 	
 	// The length of time to sleep in milliseconds
 	private Long milliseconds;
@@ -37,12 +37,12 @@ public class TraceWatcherHelper implements Runnable {
 	private boolean stopFlag;
 	
 	
-	public TraceWatcherHelper(TraceWatcherComponentServiceImpl monitorService, Long milliseconds) {
+	public TraceWatcherHelper(MonitorComponentServiceImpl monitorService, Long milliseconds) {
 		this(monitorService);
 		this.milliseconds = milliseconds;
 	}
 	
-	public TraceWatcherHelper(TraceWatcherComponentServiceImpl monitorService) {
+	public TraceWatcherHelper(MonitorComponentServiceImpl monitorService) {
 		stopFlag = false;
 		this.monitorService = monitorService;
 	}
