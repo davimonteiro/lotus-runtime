@@ -22,25 +22,24 @@
  */
 package br.com.davimonteiro.lotus_runtime;
 
-import java.nio.file.Paths;
-
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.config.Configuration;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponentImpl;
 import br.com.davimonteiro.lotus_runtime.model.ModelComponentImpl;
 import br.com.davimonteiro.lotus_runtime.monitor.MonitorComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentServiceImpl;
-import br.com.davimonteiro.lotus_runtime.notifier.PropertyViolationHandler;
+import br.com.davimonteiro.lotus_runtime.notifier.ViolationHandler;
 
 public class LotusRuntime {
 
 	private Configuration configuration;
 	
-	private PropertyViolationHandler violationHandler;
+	private ViolationHandler violationHandler;
 	
 	private ComponentManager manager;
 	
-	public LotusRuntime(Configuration configuration, PropertyViolationHandler violationHandler) {
+	public LotusRuntime(Configuration configuration, ViolationHandler violationHandler) {
 		this.configuration = configuration;
 		this.violationHandler = violationHandler;
 		this.manager = new ComponentManagerImpl();
@@ -50,16 +49,16 @@ public class LotusRuntime {
 	public void start() throws Exception {
 		
 		// Configuration
-		ConfigurationServiceComponentImpl configurationServiceComponent = new ConfigurationServiceComponentImpl();
+		ConfigurationServiceComponent configurationServiceComponent = new ConfigurationServiceComponentImpl();
 		configurationServiceComponent.setConfiguration(configuration);
+		configurationServiceComponent.setViolationHandler(violationHandler);
 		
 		
-		manager.installComponent(configurationServiceComponent);
-		
-		manager.installComponent(new NotifierComponentServiceImpl(violationHandler));
-		manager.installComponent(new ModelComponentImpl(Paths.get(configuration.getProjectFile())));
-		manager.installComponent(new MonitorComponentServiceImpl(Paths.get(configuration.getTraceFile()), configuration.getMilliseconds()));
-		manager.installComponent(new ModelCheckerComponentServiceImpl(configuration.getProperties()));
+		manager.installComponent((Component)configurationServiceComponent);
+		manager.installComponent(new NotifierComponentServiceImpl());
+		manager.installComponent(new ModelComponentImpl());
+		manager.installComponent(new MonitorComponentServiceImpl());
+		manager.installComponent(new ModelCheckerComponentServiceImpl());
 		
 		manager.start(manager);
 	}

@@ -24,12 +24,10 @@ package br.com.davimonteiro.lotus_runtime;
 
 public interface ComponentManager extends Component {
 	
-//	public <T> T getComponentService(Class<? extends ComponentService> clazz);
+	<T extends ComponentService> T getComponentService(Class<T> clazz);
 	
-	public <T extends ComponentService> T getComponentService(Class<T> clazz);
+	void installComponent(Component component) throws Exception;
 	
-	public void installComponent(Component component) throws Exception;
-	
-	public void uninstallComponent(Component component) throws Exception;
+	void uninstallComponent(Component component) throws Exception;
 	
 }

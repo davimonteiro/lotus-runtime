@@ -26,20 +26,22 @@ import net.engio.mbassy.bus.MBassador;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 
 public class NotifierComponentServiceImpl implements Component, NotifierComponentService {
 
 	private MBassador<Property> eventBus;
 
-	private PropertyViolationHandler violationHandler;
+	private ViolationHandler violationHandler;
 	
-	public NotifierComponentServiceImpl(PropertyViolationHandler violationHandler) {
+	public NotifierComponentServiceImpl() {
 		this.eventBus = new MBassador<Property>();
-		this.violationHandler = violationHandler;
 	}
 	
 	@Override
 	public void start(ComponentManager manager) throws Exception {
+		ConfigurationServiceComponent configurationComponent = manager.getComponentService(ConfigurationServiceComponent.class);
+		this.violationHandler = configurationComponent.getViolationHandler();
 		eventBus.subscribe(violationHandler);
 	}
 

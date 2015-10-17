@@ -23,11 +23,13 @@
 package br.com.davimonteiro.lotus_runtime.monitor;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerServiceComponent;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.ModelServiceComponent;
 
 /**
@@ -52,15 +54,17 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 	private Long milliseconds;
 	
 
-	public MonitorComponentServiceImpl(Path traceFile, Long milliseconds) {
+	public MonitorComponentServiceImpl() {
 		this.annotator = new ProbabilisticAnnotator();
-		this.traceFile = traceFile;
-		this.milliseconds = milliseconds;
 	}
 
 	@Override
 	public void start(ComponentManager manager) throws Exception {
 		log.info("Starting the TraceWatcherComponent");
+		
+		ConfigurationServiceComponent configurationComponent = manager.getComponentService(ConfigurationServiceComponent.class);
+		this.milliseconds = configurationComponent.getConfiguration().getMilliseconds();
+		this.traceFile = Paths.get(configurationComponent.getConfiguration().getTraceFile());
 		
 		this.modelComponent = manager.getComponentService(ModelServiceComponent.class);
 		this.modelCheckerComponent = manager.getComponentService(ModelCheckerServiceComponent.class);

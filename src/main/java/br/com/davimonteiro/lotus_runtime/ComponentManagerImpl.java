@@ -52,14 +52,13 @@ public class ComponentManagerImpl implements ComponentManager {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends ComponentService> T getComponentService(Class<T> clazz) {
 		T service = null;
 		
 		for (Component component : components) {
 			if (clazz.isAssignableFrom(component.getClass())) {
-				service = (T) component;
+				service = clazz.cast(component);
 				break;
 			}
 		}

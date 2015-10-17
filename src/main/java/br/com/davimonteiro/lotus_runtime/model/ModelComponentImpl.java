@@ -29,11 +29,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
@@ -47,13 +49,14 @@ public class ModelComponentImpl implements Component, ModelServiceComponent {
 	private ProjectSerializer serializer;
 	
 	
-	public ModelComponentImpl(Path projectFile) {
-		this.projectFile = projectFile;
+	public ModelComponentImpl() {
 		this.serializer = new ProjectXMLSerializer();
 	}
 
 	@Override
 	public void start(ComponentManager manager) throws Exception {
+		ConfigurationServiceComponent configurationComponent = manager.getComponentService(ConfigurationServiceComponent.class);
+		this.projectFile = Paths.get(configurationComponent.getConfiguration().getProjectFile());
 		loadProject();
 	}
 	

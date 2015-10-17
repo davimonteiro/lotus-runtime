@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.conditional.ConditionContext;
+import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.ModelServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentService;
@@ -46,14 +47,15 @@ public class ModelCheckerComponentServiceImpl implements Component, ModelChecker
 	
 	private ConditionContext conditionContext;
 	
-	public ModelCheckerComponentServiceImpl(List<Property> properties) {
-		this.properties = properties;
+	public ModelCheckerComponentServiceImpl() {
 		this.reachAlgorithm = new ProbabilisticReachAlgorithm();
 		this.conditionContext = new ConditionContext();
 	}
 	
 	@Override
 	public void start(ComponentManager manager) throws Exception {
+		ConfigurationServiceComponent configurationComponent = manager.getComponentService(ConfigurationServiceComponent.class);
+		this.properties = configurationComponent.getConfiguration().getProperties();
 		this.modelComponent = manager.getComponentService(ModelServiceComponent.class);
 		this.eventBusComponentService = manager.getComponentService(NotifierComponentService.class);
 	}

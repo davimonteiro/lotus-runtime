@@ -26,6 +26,6 @@ import br.com.davimonteiro.lotus_runtime.checker.Property;
 
 public interface ViolationHandler {
 	
-	public void handler(Property property);
+	void handler(Property property);
 	
 }
