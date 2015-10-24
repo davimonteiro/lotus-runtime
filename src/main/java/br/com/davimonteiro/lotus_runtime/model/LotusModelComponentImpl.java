@@ -40,7 +40,7 @@ import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
 @Slf4j
-public class ModelComponentImpl implements Component, ModelServiceComponent {
+public class LotusModelComponentImpl implements Component, LotusModelServiceComponent {
 
 	private Path projectFile;
 	
@@ -49,7 +49,7 @@ public class ModelComponentImpl implements Component, ModelServiceComponent {
 	private ProjectSerializer serializer;
 	
 	
-	public ModelComponentImpl() {
+	public LotusModelComponentImpl() {
 		this.serializer = new ProjectXMLSerializer();
 	}
 

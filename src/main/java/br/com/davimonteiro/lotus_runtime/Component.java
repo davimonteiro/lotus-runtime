@@ -32,7 +32,6 @@ public interface Component {
 	
 	void start(ComponentManager manager) throws Exception;
 	
-	
 	void stop(ComponentManager manager) throws Exception;
 	
 }

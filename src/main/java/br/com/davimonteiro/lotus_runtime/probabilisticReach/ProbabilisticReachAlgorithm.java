@@ -168,5 +168,6 @@ public class ProbabilisticReachAlgorithm {
         int resultado = var5+var4; // O resultado será 200+37 = 237  
         double resultado_final = resultado/Math.pow(10,casas_decimais); // Finalmente divide-se o resultado pelo número de casas decimais, 237/100 = 2.37  
         return resultado_final; // Retorna o resultado_final :P   
-    } 
+    }
+    
 }

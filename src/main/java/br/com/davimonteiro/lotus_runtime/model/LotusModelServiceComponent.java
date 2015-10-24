@@ -26,12 +26,12 @@ import br.com.davimonteiro.lotus_runtime.ComponentService;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
-public interface ModelServiceComponent extends ComponentService {
-	
+public interface LotusModelServiceComponent extends ComponentService {
+
 	void updateLotusModel(LotusModel model);
-	
+
 	LotusModel getLotusModel();
-	
-	LotusComponent getLotusComponent() ;
+
+	LotusComponent getLotusComponent();
 
 }

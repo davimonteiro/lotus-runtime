@@ -30,7 +30,7 @@ import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerServiceComponent;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
-import br.com.davimonteiro.lotus_runtime.model.ModelServiceComponent;
+import br.com.davimonteiro.lotus_runtime.model.LotusModelServiceComponent;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 	
 	private Path traceFile;
 	
-	private ModelServiceComponent modelComponent;
+	private LotusModelServiceComponent lotusModelComponent;
 	
 	private ModelCheckerServiceComponent modelCheckerComponent;
 	
@@ -66,7 +66,7 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 		this.milliseconds = configurationComponent.getConfiguration().getMilliseconds();
 		this.traceFile = Paths.get(configurationComponent.getConfiguration().getTraceFile());
 		
-		this.modelComponent = manager.getComponentService(ModelServiceComponent.class);
+		this.lotusModelComponent = manager.getComponentService(LotusModelServiceComponent.class);
 		this.modelCheckerComponent = manager.getComponentService(ModelCheckerServiceComponent.class);
 		this.traceWatcherHelper = new TraceWatcherHelper(this, milliseconds);
 		
@@ -82,8 +82,8 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 	// Update the model and the project file
 	@Override
 	public void updateModel(String[] trace) {
-		this.annotator.annotate(modelComponent.getLotusComponent(), trace);
-		this.modelComponent.updateLotusModel(modelComponent.getLotusModel());
+		this.annotator.annotate(lotusModelComponent.getLotusComponent(), trace);
+		this.lotusModelComponent.updateLotusModel(lotusModelComponent.getLotusModel());
 		this.modelCheckerComponent.verifyModel();
 	}
 

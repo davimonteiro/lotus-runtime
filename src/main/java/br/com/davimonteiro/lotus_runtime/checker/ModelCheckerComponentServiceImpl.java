@@ -29,7 +29,7 @@ import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.conditional.ConditionContext;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
-import br.com.davimonteiro.lotus_runtime.model.ModelServiceComponent;
+import br.com.davimonteiro.lotus_runtime.model.LotusModelServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentService;
 import br.com.davimonteiro.lotus_runtime.probabilisticReach.ProbabilisticReachAlgorithm;
@@ -37,7 +37,7 @@ import br.com.davimonteiro.lotus_runtime.probabilisticReach.ProbabilisticReachAl
 @Slf4j
 public class ModelCheckerComponentServiceImpl implements Component, ModelCheckerServiceComponent {
 	
-	private ModelServiceComponent modelComponent;
+	private LotusModelServiceComponent modelComponent;
 	
 	private List<Property> properties;
 	
@@ -56,7 +56,7 @@ public class ModelCheckerComponentServiceImpl implements Component, ModelChecker
 	public void start(ComponentManager manager) throws Exception {
 		ConfigurationServiceComponent configurationComponent = manager.getComponentService(ConfigurationServiceComponent.class);
 		this.properties = configurationComponent.getConfiguration().getProperties();
-		this.modelComponent = manager.getComponentService(ModelServiceComponent.class);
+		this.modelComponent = manager.getComponentService(LotusModelServiceComponent.class);
 		this.eventBusComponentService = manager.getComponentService(NotifierComponentService.class);
 	}
 	

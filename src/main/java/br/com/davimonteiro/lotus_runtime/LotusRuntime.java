@@ -26,7 +26,7 @@ import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerComponentServiceImp
 import br.com.davimonteiro.lotus_runtime.config.Configuration;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponentImpl;
-import br.com.davimonteiro.lotus_runtime.model.ModelComponentImpl;
+import br.com.davimonteiro.lotus_runtime.model.LotusModelComponentImpl;
 import br.com.davimonteiro.lotus_runtime.monitor.MonitorComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentServiceImpl;
 import br.com.davimonteiro.lotus_runtime.notifier.ViolationHandler;
@@ -56,7 +56,7 @@ public class LotusRuntime {
 		
 		manager.installComponent((Component)configurationServiceComponent);
 		manager.installComponent(new NotifierComponentServiceImpl());
-		manager.installComponent(new ModelComponentImpl());
+		manager.installComponent(new LotusModelComponentImpl());
 		manager.installComponent(new MonitorComponentServiceImpl());
 		manager.installComponent(new ModelCheckerComponentServiceImpl());
 		

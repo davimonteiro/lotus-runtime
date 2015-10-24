@@ -74,7 +74,6 @@ public class App {
 
 		lotusRT.start();
 		
-
 	}
 
 }
