@@ -22,10 +22,6 @@
  */
 package br.com.davimonteiro.lotus_runtime.checker;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,21 +32,15 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Property {
 	
-	@NotNull
 	@Getter
 	private Integer sourceStateId;
 	
-	@NotNull
 	@Getter
 	private Integer targetStateId;
 	
-	@NotNull
 	@Getter
 	private ConditionalOperator conditionalOperator;
 	
-	@NotNull
-	@Min(0)
-	@Max(1)
 	@Getter
 	private Double probability;
 

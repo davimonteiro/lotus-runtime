@@ -36,7 +36,6 @@ public class App {
 	
 	public static void main(String[] args) throws Exception {
 
-		
 		// File paths
 		Path traceFile = Paths.get("/Users/davimonteiro/Desktop/log/traces.csv");
 		Path lotusFile = Paths.get("/Users/davimonteiro/Desktop/LoTuS files/TeleAssisteance.xml");

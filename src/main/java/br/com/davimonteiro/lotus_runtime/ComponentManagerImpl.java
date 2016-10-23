@@ -25,9 +25,9 @@ package br.com.davimonteiro.lotus_runtime;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class ComponentManagerImpl implements ComponentManager {
 	
 	private List<Component> components;

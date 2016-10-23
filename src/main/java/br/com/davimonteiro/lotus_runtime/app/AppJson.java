@@ -37,8 +37,6 @@ public class AppJson {
 
 		LotusRuntime lotusRuntime = new LotusRuntime(ConfigurationUtil.load(configPath), handler);
 		lotusRuntime.start();
-		//lotusRuntime.stop();
-		
 	}
 
 }

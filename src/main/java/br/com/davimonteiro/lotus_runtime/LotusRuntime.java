@@ -45,14 +45,12 @@ public class LotusRuntime {
 		this.manager = new ComponentManagerImpl();
 	}
 	
-	// TODO Para implementar. Cada componente deve ter uma prioridade para que ele seja inciado.
 	public void start() throws Exception {
 		
 		// Configuration
 		ConfigurationServiceComponent configurationServiceComponent = new ConfigurationServiceComponentImpl();
 		configurationServiceComponent.setConfiguration(configuration);
 		configurationServiceComponent.setViolationHandler(violationHandler);
-		
 		
 		manager.installComponent((Component)configurationServiceComponent);
 		manager.installComponent(new NotifierComponentServiceImpl());

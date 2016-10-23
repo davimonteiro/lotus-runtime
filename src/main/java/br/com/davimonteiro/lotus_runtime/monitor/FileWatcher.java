@@ -35,9 +35,9 @@ import java.nio.file.WatchService;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class FileWatcher {
 
 	private Path traceFile;
@@ -55,7 +55,7 @@ public class FileWatcher {
 	private void init() throws IOException {
 		this.watcher = FileSystems.getDefault().newWatchService();
 		this.keys = new HashMap<WatchKey, Path>();
-		this.traceFile = monitorService.getTraceFile();
+		this.traceFile = monitorService.getTracePath();
 		this.register(traceFile.getParent());
 		
 		lineReader = new LineNumberReader(Files.newBufferedReader(traceFile));
@@ -79,17 +79,17 @@ public class FileWatcher {
 	private void process(WatchEvent<?> event) {
 		Path changed = (Path) event.context();
 		if (changed.endsWith(traceFile.getFileName())) {
-			updateModel();
+			readTrace();
 		}
 	}
 	
 	private void register(Path dir) throws IOException {
 		WatchKey key = dir.register(watcher, ENTRY_MODIFY);
-		log.info("register: %s\n", dir);
+		log.info("register: " + dir.toString());
 		keys.put(key, dir);
 	}
 	
-	public void updateModel() {
+	public void readTrace() {
 		try {
 			lineReader.reset();
 			
@@ -98,7 +98,7 @@ public class FileWatcher {
 				if (!line.isEmpty()) {
 					log.info(lineReader.getLineNumber() + " : " + line);
 					String[] trace = line.split(",");
-					monitorService.updateModel(trace);
+					monitorService.processTrace(trace);
 				}
 			}
 			
@@ -106,7 +106,7 @@ public class FileWatcher {
 			log.info("Reading the file. Done!");
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+			log.severe(e.getMessage());
 		}
 	}
 

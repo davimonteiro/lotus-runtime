@@ -23,10 +23,10 @@
 package br.com.davimonteiro.lotus_runtime.monitor;
 
 import lombok.Synchronized;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 
-@Slf4j
+@Log
 public class TraceWatcherHelper implements Runnable {
 	
 	private MonitorComponentService monitorService;
@@ -56,7 +56,7 @@ public class TraceWatcherHelper implements Runnable {
 			if (milliseconds == null) {
 				
 				// Primeiro, realizar a leitura de todo o arquivo.
-				fileWatcher.updateModel();
+				fileWatcher.readTrace();
 
 				while(!stopFlag) {
 					fileWatcher.processEvents();
@@ -66,7 +66,7 @@ public class TraceWatcherHelper implements Runnable {
 			else {
 				while(!stopFlag) {
 					// Primeiro, ler todo o arquivo
-					fileWatcher.updateModel();
+					fileWatcher.readTrace();
 					
 					// Esperar um periodo determinado. Para que depois, realize uma nota tentativa de leitura do arquivo de trace
 					Thread.sleep(milliseconds);
@@ -75,7 +75,7 @@ public class TraceWatcherHelper implements Runnable {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+			log.severe(e.getMessage());
 		}
 	}
 	

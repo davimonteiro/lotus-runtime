@@ -24,33 +24,38 @@ package br.com.davimonteiro.lotus_runtime.model;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.Synchronized;
-import lombok.extern.slf4j.Slf4j;
+import com.google.common.base.Throwables;
+
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
+import br.com.davimonteiro.lotus_runtime.monitor.ProbabilisticAnnotator;
+import lombok.Synchronized;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class LotusModelComponentImpl implements Component, LotusModelServiceComponent {
 
 	private Path projectFile;
 	
 	private LotusModel lotusModel;
 	
+	private ProbabilisticAnnotator annotator;
+	
 	private ProjectSerializer serializer;
 	
 	
 	public LotusModelComponentImpl() {
 		this.serializer = new ProjectXMLSerializer();
+		this.annotator = new ProbabilisticAnnotator();
 	}
 
 	@Override
@@ -66,9 +71,13 @@ public class LotusModelComponentImpl implements Component, LotusModelServiceComp
 		manager.uninstallComponent(this);
 	}
 
-	private void saveProject() throws IOException, Exception {
-		OutputStream outputStream = Files.newOutputStream(projectFile);
-		serializer.toStream(lotusModel, outputStream);
+	private void saveProject() {
+		try (OutputStream outputStream = Files.newOutputStream(projectFile)){
+			serializer.toStream(lotusModel, outputStream);
+		} catch (Exception e) {
+			log.severe(e.getMessage());
+			Throwables.propagate(e);
+		}
 	}
 	
 	private void loadProject() {
@@ -80,21 +89,16 @@ public class LotusModelComponentImpl implements Component, LotusModelServiceComp
 				lotusModel.setName("Untitled");
 			}
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			log.severe(e.getMessage());
+			Throwables.propagate(e);
 		}
-		
 	}
 	
 	@Override
 	@Synchronized
-	public void updateLotusModel(LotusModel project) {
-		this.lotusModel = project;
-
-		try {
-			saveProject();
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
+	public void updateLotusModel(String[] trace) {
+		this.annotator.annotate(getLotusComponent(), trace);
+		saveProject();
 	}
 	
 	@Override

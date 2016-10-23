@@ -28,7 +28,7 @@ import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 
 public interface LotusModelServiceComponent extends ComponentService {
 
-	void updateLotusModel(LotusModel model);
+	void updateLotusModel(String[] trace);
 
 	LotusModel getLotusModel();
 

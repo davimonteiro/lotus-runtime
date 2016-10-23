@@ -25,7 +25,7 @@ package br.com.davimonteiro.lotus_runtime.monitor;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerServiceComponent;
@@ -38,7 +38,7 @@ import br.com.davimonteiro.lotus_runtime.model.LotusModelServiceComponent;
  * @since 2015
  *
  */
-@Slf4j
+@Log
 public class MonitorComponentServiceImpl implements Component, MonitorComponentService {
 	
 	private Path traceFile;
@@ -47,16 +47,10 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 	
 	private ModelCheckerServiceComponent modelCheckerComponent;
 	
-	private ProbabilisticAnnotator annotator;
-
 	private TraceWatcherHelper traceWatcherHelper;
 
 	private Long milliseconds;
 	
-
-	public MonitorComponentServiceImpl() {
-		this.annotator = new ProbabilisticAnnotator();
-	}
 
 	@Override
 	public void start(ComponentManager manager) throws Exception {
@@ -79,16 +73,14 @@ public class MonitorComponentServiceImpl implements Component, MonitorComponentS
 		manager.uninstallComponent(this);
 	}
 	
-	// Update the model and the project file
 	@Override
-	public void updateModel(String[] trace) {
-		this.annotator.annotate(lotusModelComponent.getLotusComponent(), trace);
-		this.lotusModelComponent.updateLotusModel(lotusModelComponent.getLotusModel());
+	public void processTrace(String[] trace) {
+		this.lotusModelComponent.updateLotusModel(trace);
 		this.modelCheckerComponent.verifyModel();
 	}
 
 	@Override
-	public Path getTraceFile() {
+	public Path getTracePath() {
 		return this.traceFile;
 	}
 

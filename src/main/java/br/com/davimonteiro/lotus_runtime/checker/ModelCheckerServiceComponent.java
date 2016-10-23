@@ -24,16 +24,8 @@ package br.com.davimonteiro.lotus_runtime.checker;
 
 import br.com.davimonteiro.lotus_runtime.ComponentService;
 
-/**
- * 
- * @author davimonteiro
- *
- */
 public interface ModelCheckerServiceComponent extends ComponentService {
 	
-	/**
-	 * 
-	 */
 	public void verifyModel();
 
 }

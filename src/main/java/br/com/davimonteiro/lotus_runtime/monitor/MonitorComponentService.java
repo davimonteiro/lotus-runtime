@@ -26,26 +26,10 @@ import java.nio.file.Path;
 
 import br.com.davimonteiro.lotus_runtime.ComponentService;
 
-/**
- * 
- * @author Davi Monteiro Barbosa
- * @since 2015
- *
- * 
- *
- */
 public interface MonitorComponentService extends ComponentService {
 	
-	/**
-	 * 
-	 * @param trace
-	 */
-	void updateModel(String[] trace);
+	void processTrace(String[] trace);
 	
-	/**
-	 * 
-	 * @return
-	 */
-	Path getTraceFile();
+	Path getTracePath();
 	
 }
