@@ -71,7 +71,9 @@
 					</properties>
 					<excludes>
 						<exclude>**/pom.xml</exclude>
+						<exclude>**/representations.aird</exclude>
 						<exclude>**/README</exclude>
+						<exclude>uml/**</exclude>
 						<exclude>src/test/resources/**</exclude>
 						<exclude>src/main/resources/**</exclude>
 					</excludes>
