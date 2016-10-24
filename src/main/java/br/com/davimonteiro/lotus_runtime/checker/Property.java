@@ -33,6 +33,9 @@ import lombok.ToString;
 public class Property {
 	
 	@Getter
+	private Integer id;
+	
+	@Getter
 	private Integer sourceStateId;
 	
 	@Getter
