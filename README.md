@@ -9,13 +9,13 @@ The Lotus@Runtime is a tool to perform, in an integrated manner, monitoring, ver
 --------------------------------------
 - JRE 8
 - Maven 3.x
-- ObjectAid UML Explorer
-- Lombok
 
 
 3. Building
 --------------------------------------
-
+``
+mvn clen compile package
+``
 
 4. More Information
 --------------------------------------

@@ -24,11 +24,11 @@ package br.com.davimonteiro.lotus_runtime;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
-import lombok.extern.java.Log;
-
-@Log
 public class ComponentManagerImpl implements ComponentManager {
+	
+	private static final Logger log = Logger.getLogger(ComponentManagerImpl.class.getName());
 	
 	private List<Component> components;
 	

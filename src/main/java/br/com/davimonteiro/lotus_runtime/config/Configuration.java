@@ -24,32 +24,116 @@ package br.com.davimonteiro.lotus_runtime.config;
 
 import java.util.List;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 import br.com.davimonteiro.lotus_runtime.checker.Property;
 
-@Builder
-@EqualsAndHashCode
-@ToString
 public class Configuration {
 	
 	public static final String FILE_EXTENSION = ".json";
 	
-	@Getter
 	private String name;
 	
-	@Getter
 	private String traceFile;
 	
-	@Getter
 	private String projectFile;
 	
-	@Getter
 	private Long milliseconds;
 	
-	@Getter
 	private List<Property> properties;
+	
+	public Configuration() { }
+
+	private Configuration(ConfigurationBuilder builder) {
+		this.name = builder.name;
+		this.traceFile = builder.traceFile;
+		this.projectFile = builder.projectFile;
+		this.milliseconds = builder.milliseconds;
+		this.properties = builder.properties;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTraceFile() {
+		return traceFile;
+	}
+
+	public void setTraceFile(String traceFile) {
+		this.traceFile = traceFile;
+	}
+
+	public String getProjectFile() {
+		return projectFile;
+	}
+
+	public void setProjectFile(String projectFile) {
+		this.projectFile = projectFile;
+	}
+
+	public Long getMilliseconds() {
+		return milliseconds;
+	}
+
+	public void setMilliseconds(Long milliseconds) {
+		this.milliseconds = milliseconds;
+	}
+
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
+	}
+	
+	public static class ConfigurationBuilder {
+		
+		private String name;
+		
+		private String traceFile;
+		
+		private String projectFile;
+		
+		private Long milliseconds;
+		
+		private List<Property> properties;
+		
+		public ConfigurationBuilder() { }
+		
+		public ConfigurationBuilder name(String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public ConfigurationBuilder traceFile(String traceFile) {
+			this.traceFile = traceFile;
+			return this;
+		}
+		
+		public ConfigurationBuilder projectFile(String projectFile) {
+			this.projectFile = projectFile;
+			return this;
+		}
+		
+		public ConfigurationBuilder milliseconds(Long milliseconds) {
+			this.milliseconds = milliseconds;
+			return this;
+		}
+		
+		public ConfigurationBuilder properties(List<Property> properties) {
+			this.properties = properties;
+			return this;
+		}
+		
+		public Configuration build() {
+			return new Configuration(this);
+		}
+
+		
+	}
 	
 }

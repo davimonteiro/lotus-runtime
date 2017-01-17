@@ -23,8 +23,8 @@
 package br.com.davimonteiro.lotus_runtime.checker;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-import lombok.extern.java.Log;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.conditional.ConditionContext;
@@ -34,8 +34,9 @@ import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.notifier.NotifierComponentService;
 import br.com.davimonteiro.lotus_runtime.probabilisticReach.ProbabilisticReachAlgorithm;
 
-@Log
 public class ModelCheckerComponentServiceImpl implements Component, ModelCheckerServiceComponent {
+	
+	private static final Logger log = Logger.getLogger(ModelCheckerComponentServiceImpl.class.getName());
 	
 	private LotusModelServiceComponent modelComponent;
 	

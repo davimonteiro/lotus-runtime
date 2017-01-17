@@ -24,22 +24,17 @@ package br.com.davimonteiro.lotus_runtime.monitor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
-import lombok.extern.java.Log;
 import br.com.davimonteiro.lotus_runtime.Component;
 import br.com.davimonteiro.lotus_runtime.ComponentManager;
 import br.com.davimonteiro.lotus_runtime.checker.ModelCheckerServiceComponent;
 import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.LotusModelServiceComponent;
 
-/**
- * 
- * @author Davi Monteiro Barbosa
- * @since 2015
- *
- */
-@Log
 public class MonitorComponentServiceImpl implements Component, MonitorComponentService {
+	
+	private static final Logger log = Logger.getLogger(MonitorComponentServiceImpl.class.getName());
 	
 	private Path traceFile;
 	

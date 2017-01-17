@@ -37,6 +37,10 @@ import com.google.gson.JsonSyntaxException;
 
 public class ConfigurationUtil {
 	
+//	public static ConfigurationBuilder newConfiguration() {
+//		return Configuration.builder();
+//	}
+	
 	public static Configuration load(Path configPath) {
 		Configuration config = null;
 		

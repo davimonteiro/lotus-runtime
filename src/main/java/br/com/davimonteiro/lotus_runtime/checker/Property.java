@@ -22,29 +22,111 @@
  */
 package br.com.davimonteiro.lotus_runtime.checker;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
-@Builder
-@ToString
-@EqualsAndHashCode
 public class Property {
-	
-	@Getter
+
 	private Integer id;
 	
-	@Getter
 	private Integer sourceStateId;
 	
-	@Getter
 	private Integer targetStateId;
 	
-	@Getter
 	private ConditionalOperator conditionalOperator;
 	
-	@Getter
 	private Double probability;
+	
+	public Property() { }
+	
+	private Property(PropertyBuilder builder) {
+		this.id = builder.id;
+		this.sourceStateId = builder.sourceStateId;
+		this.targetStateId = builder.targetStateId;
+		this.conditionalOperator = builder.conditionalOperator;
+		this.probability = builder.probability;
+	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getSourceStateId() {
+		return sourceStateId;
+	}
+
+	public void setSourceStateId(Integer sourceStateId) {
+		this.sourceStateId = sourceStateId;
+	}
+
+	public Integer getTargetStateId() {
+		return targetStateId;
+	}
+
+	public void setTargetStateId(Integer targetStateId) {
+		this.targetStateId = targetStateId;
+	}
+
+	public ConditionalOperator getConditionalOperator() {
+		return conditionalOperator;
+	}
+
+	public void setConditionalOperator(ConditionalOperator conditionalOperator) {
+		this.conditionalOperator = conditionalOperator;
+	}
+
+	public Double getProbability() {
+		return probability;
+	}
+
+	public void setProbability(Double probability) {
+		this.probability = probability;
+	}
+	
+	public static class PropertyBuilder {
+		
+		private Integer id;
+		
+		private Integer sourceStateId;
+		
+		private Integer targetStateId;
+		
+		private ConditionalOperator conditionalOperator;
+		
+		private Double probability;
+		
+		public PropertyBuilder() { }
+		
+		public PropertyBuilder id(Integer id) {
+			this.id = id;
+			return this;
+		}
+		
+		public PropertyBuilder sourceStateId(Integer sourceStateId) {
+			this.sourceStateId = sourceStateId;
+			return this;
+		}
+		
+		public PropertyBuilder targetStateId(Integer targetStateId) {
+			this.targetStateId = targetStateId;
+			return this;
+		}
+		
+		public PropertyBuilder conditionalOperator(ConditionalOperator conditionalOperator) {
+			this.conditionalOperator = conditionalOperator;
+			return this;
+		}
+		
+		public PropertyBuilder probability(Double probability) {
+			this.probability = probability;
+			return this;
+		}
+		
+		public Property build() {
+			return new Property(this);
+		}
+		
+	}
+	
 }

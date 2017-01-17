@@ -22,12 +22,12 @@
  */
 package br.com.davimonteiro.lotus_runtime.monitor;
 
-import lombok.Synchronized;
-import lombok.extern.java.Log;
+import java.util.logging.Logger;
 
 
-@Log
 public class TraceWatcherHelper implements Runnable {
+	
+	private static final Logger log = Logger.getLogger(TraceWatcherHelper.class.getName());
 	
 	private MonitorComponentService monitorService;
 	
@@ -79,7 +79,6 @@ public class TraceWatcherHelper implements Runnable {
 		}
 	}
 	
-	@Synchronized
 	public void stop() {
 		stopFlag = true;
 	}

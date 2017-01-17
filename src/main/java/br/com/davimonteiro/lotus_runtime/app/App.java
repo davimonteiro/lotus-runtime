@@ -44,14 +44,15 @@ public class App {
 		// Condictions that I want to verify
 		List<Property> properties = new ArrayList<Property>();
 		
-		properties.add(Property.builder()
+		
+		properties.add(new Property.PropertyBuilder()
 				.sourceStateId(0)
 				.targetStateId(11)
 				.conditionalOperator(ConditionalOperator.GREATER_THAN)
 				.probability(0.9)
 				.build());
 		
-		properties.add(Property.builder()
+		properties.add(new Property.PropertyBuilder()
 				.sourceStateId(0)
 				.targetStateId(1)
 				.conditionalOperator(ConditionalOperator.EQUAL_TO)
@@ -62,7 +63,7 @@ public class App {
 		MyHandler handler = new MyHandler();
 		
 		
-		Configuration config = Configuration.builder()
+		Configuration config = new Configuration.ConfigurationBuilder()
 				.traceFile(traceFile.toString())
 				.milliseconds(2000L)
 				.projectFile(lotusFile.toString())

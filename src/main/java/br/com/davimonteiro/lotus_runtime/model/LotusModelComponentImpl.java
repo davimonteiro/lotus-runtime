@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import com.google.common.base.Throwables;
 
@@ -38,12 +39,12 @@ import br.com.davimonteiro.lotus_runtime.config.ConfigurationServiceComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusComponent;
 import br.com.davimonteiro.lotus_runtime.model.util.LotusModel;
 import br.com.davimonteiro.lotus_runtime.monitor.ProbabilisticAnnotator;
-import lombok.Synchronized;
-import lombok.extern.java.Log;
+import net.engio.mbassy.listener.Synchronized;
 
-@Log
 public class LotusModelComponentImpl implements Component, LotusModelServiceComponent {
-
+	
+	private static final Logger log = Logger.getLogger(LotusModelComponentImpl.class.getName());
+	
 	private Path projectFile;
 	
 	private LotusModel lotusModel;

@@ -26,13 +26,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>net.engio</groupId>
 			<artifactId>mbassador</artifactId>
 			<version>1.2.1</version>
@@ -67,7 +60,7 @@
 					<properties>
 						<owner>Davi Monteiro Barbosa</owner>
 						<email>davimonteiro.ce@gmail.com</email>
-						<project.inceptionYear>2016</project.inceptionYear>
+						<project.inceptionYear>2017</project.inceptionYear>
 					</properties>
 					<excludes>
 						<exclude>**/pom.xml</exclude>

@@ -34,11 +34,11 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
-import lombok.extern.java.Log;
-
-@Log
 public class FileWatcher {
+	
+	private static final Logger log = Logger.getLogger(FileWatcher.class.getName());
 
 	private Path traceFile;
 	private LineNumberReader lineReader;
