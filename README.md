@@ -110,7 +110,7 @@ The left panel shows the concrete services that are available.  A green mark mea
 
 The right panel shows the definition of the TAS workflow. Both a graphical representation and a specification with to the ReSeP workflow definition language are available.
 
-###### TAS/TPA Configuration Bar  
+##### TAS/TPA Configuration Bar  
 
 The Open button allows opening a workflow (Open Workflow item). The Configure button allows dynamic configuration of the behavior of the underlying ReSeP platform. Message loss and communication delay can be defined, as well as the real time that matches with a logic time unit in the system.
 
@@ -120,7 +120,7 @@ The left panel shows the input profile that can be used to test the loaded confi
 
 The right panel shows three graphs with tables. When the execution of the input profile completes, the results will be shown in the graphs and overview tables. The Reliability graph shows on the X-axis the series of invocations of the assistance service and on the Y-axis the concrete services that were invoked. Short green vertical lines indicate that invocations were successfully; longer red vertical lines indicate failed invocations. The Performance graph shows on the X-axis the invocations of the assistance service and on the Y-axis the response time of the concrete services that were invoked. The subsequent service executions are represented with stocked collared bars. Finally, the Cost graph shows the accumulated cost for the invocations performed by the input profile. The tables summarize the results.
 
-###### TAS/TPA Experimention Bar  
+##### TAS/TPA Experimention Bar  
 
 The Open button allows opening new input profiles (Open Profile item), open the results of an earlier run stored in csv format (Open Available Services item), and open the log (Open Log). For the latter, log items can be ordered based on different criteria and the log can be filtered based on time and type.
 
@@ -133,7 +133,35 @@ The progress bar shows the progress of an ongoing execution of an input profile.
 [1]:<https://people.cs.kuleuven.be/~danny.weyns/software/TAS/>
 [2]:<https://www-users.cs.york.ac.uk/~raduc/COVE/>
 
-  
-4. More Information
+
+### 8. More Information
 --------------------------------------
+
 You can check more information at http://www.davimonteiro.com.br/seams2017/2017/01/17/lotus-at-runtime.html
+
+
+### 9. License
+--------------------------------------
+
+
+The MIT License
+Copyright © 2017 Davi Monteiro Barbosa
+ 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+ 
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+ 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ 
